@@ -1,0 +1,30 @@
+= Webserver Apache als Docker Container - Übung 2
+
+In der vorigen Übung habt ihr einen Container mit dem Webserver Apache2 gebaut und so gestartet, dass ihr darauf zugreifen könnt. Ihr seht hier aber lediglich eine Seite mit dem Inhalt "It works!".
+
+Nun sollt ihr dafür sorgen, dass der Webserver eine eigene Webseite ausliefert.
+
+Schaut euch dazu zuerst in eurem Container um, bzw. startet einen neuen mit einer interaktiven Shell. Schaut dazu in die vorige Übung, wie das geht.
+
+Navigiert nun in das Verzeichnis `/usr/local/apache2/htdocs`. Hier findet ihr die Datei `index.html`. Ihr könntet diese Datei nun editieren, allerdings ist in dem Container kein Editor vorhanden.
+
+Eine Möglichkeit wäre, z.B. `nano` nachzuinstallieren:
+
+ apt update
+ apt install nano
+
+Nun könnt ihr die Datei anpassen. Probiert dies aus.
+
+== Volumes
+
+Damit ein neu gebauter Container automatisch eine eigene Webseite ausliefert, kann _lokal_ auf euerem Rechner eine entsprechende Datei erzeugt werden und diese dann als _Volume_ in den Container eingebunden werden. Die generell Syntax hierfür ist:
+
+ docker run -p <port-lokal>:<port-im-Container> -v <Verzeichnis-lokal>:<Verzeichnis-im-Container> <image>
+
+Mehr zur Syntax ist z.B. in der Manpage unter `man docker-run` zu finden. Sucht hier (mit `/`) nach z.B. `External Volumes` oder so.
+
+Erstellt also eine eigene HTML-Datei, bindet diese in eueren Container ein und überprüft das Ergebnis.
+
+== Mehrere Container
+
+Beendet den ersten Container nicht, erzeugt aber einen weiteren Container aus dem Image `http`, den ihr analog zu oben mit einer zweiten Webseite ausstattet. Dazu müsst ihr natürlich einen anderen Port auf dem Host System nutzen.

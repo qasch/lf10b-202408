@@ -1,0 +1,22 @@
+= Webserver Apache als Docker Container
+
+== Image
+
+Das offizielle Image zur Beretistellung eines Containers mit einem Apache Webserver hat den Namen `httpd`. Sorgt dafür, dass dieses Image auf euerem Docker Host vorhanden ist. Entweder mit `docker pull <image>` oder `docker run <image>`.
+
+== Container
+
+Startet nun einen Container aus diesem Image heraus.
+
+== Nutzung des Containers
+
+Könnt ihr jetzt von eurem Docker Host auf den Webserver zugreifen? Falls nicht, woran könnte das liegen? In welchem Netz läuft der Webserver?
+
+== Ports nach außen leiten
+
+Docker Container laufen in einem privaten Netz, nur die Container können sich untereinander sehen. Um Zugriff auf einen Container zu erlangen, muss dessen Docker-interner Port nach außen weitergeleitet werden. Die generelle Syntax hierzu ist:
+
+ docker run -p <Port-auf-dem-Host>:<Port-innerhalb-des-Containers> <image>
+
+Versucht, das entsprechend für euren Container umzusetzen.
+

@@ -1,0 +1,27 @@
+= Übung Docker: Ubuntu Container 
+
+In dieser Übung soll ein Docker Container gestartet werden, in dem ein Debian läuft.
+
+Ladet euch dazu das aktuelle Image über den Docker Hub (https://hub.docker.com) herunter.
+
+ docker pull debian
+
+Ihr habt jetzt das _Image_ von Ubuntu auf eurem System. Der Docker Container wird dann bei Bedarf aus diesem Image gebaut und gestartet:
+
+ docker run debian
+
+Scheinbar passiert hier gar nichts. Ob der Container läuft, lässt sich mit dem Kommando `docker ps` überprüfen. Auch hier wird keine Ausgabe erscheinen.
+
+Das Kommando `docker ps -a` zeigt nicht nur die aktuell laufenden Container an, sondern zusätzlich auch alle bereits wieder gestoppten Container. Ist der Ubuntu Container vielleicht hier zu finden?
+
+Der Container wurde also gestartet und hat sich direkt wieder beendet. Das liegt daran, dass in einem docker-Container immer *ein* bestimmter Prozess gestartet wird. Beendet sich dieser Prozess, wird auch der gesamte Container gestoppt. Diese Art Container können aber auch _interaktiv_ genutzt werden, um dort ein Terminal bzw. _TTY_ zu starten. In der Manpage von `docker-run` finden sich hierzu die Optionen `-i` und `-t`. Der Aufruf von
+
+ docker run -it debian
+
+bzw.
+
+ docker run -it debian /bin/bash
+
+startet den Container also interaktiv mit einer Shell (entweder der Standardshell des Systems, oder mit einer explizit angegebenen wie z.B. `bash`), so dass hier Kommandos ausgeführt werden können.
+
+Versucht, hier ein paar euch bekannter Kommandos auszuführen. Könnt ihr vielleicht sogar zusätzliche Software installieren? Könnt ihr Benutzer anlegen? Wie könnt ihr z.B. herausfinden, welche Prozesse momentan in diesem Container laufen?
