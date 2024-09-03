@@ -69,6 +69,7 @@ Dadurch benötigen Container extrem wenig Resourcen, sind sehr schnell erstellt 
 - `docker run <image>` baut einen Container aus dem Image `<image>` und startet diesen, ist das Image lokal nicht vorhanden, wird es vom Docker Hub heruntergeladen
 - `docker pull <image>` lädt `<image>` vom Docker Hub herunter
 - `docker run -it <image> /bin/bash` baut einen Container und startet diesen im interaktiven Modus und führt das Kommando `/bin/bash/` aus
+- `docker run -d <image>` baut einen Container und startet diesen im Hintergrund, die Shell ist also weiter benutzbar
 - `docker start <container>` Container starten
 - `docker stop <container>` Container stoppen
 - `docker rm <container>` gestoppten Container entfernen
@@ -78,6 +79,7 @@ Dadurch benötigen Container extrem wenig Resourcen, sind sehr schnell erstellt 
 - `docker run --rm <container> Container automatisch löschen, wenn er beendet wurde
 - `docker exec -it <container-id/-name>  /bin/bash` startet den existierenden Container und startet diesen im interaktiven Modus und führt das Kommando `/bin/bash/` aus
 - `docker top <container-id/-name>` zeigt alle momentan laufenden Prozesse im Container an
+- `docker system prune` Komando zum "aufräumen", löscht alle **gestoppten** Container, alle nicht mehr benutzen Netzwerke etc. 
 
 == Ports
 
@@ -93,8 +95,22 @@ Mit Volumes bzw. in diesem Fall sog. _Named Volumes_ können Dateien persistent 
 - `docker run -v <verzeichnis-auf-dem-host>:<verzeichnis-im-container -p <port-host>:<port-container> httpd`
 - `docker run -v ./htdocs:/usr/local/apache2/htdocs -p 8888:80 httpd` das Verzeichnis `htdocs` auf dem Host wird mit dem Verzeichnis `usr/local/apache2/htdocs` im Container verbunden. Änderungen werden in beide Richtungen übertragen
 
+== docker compose
 
+Mit `docker compose` können ein oder mehrere Container (-> Stack) komfortabel über eine Datei (`docker-compose.yml`) konfiguriert und mit dem Kommando `docker compose up` gestartet werden.
 
+Hierzu ist es ratsam, für jeden _Stack_ ein eigenes Verzeichnis zu erstellen. In diesem Verzeichnis befinden sich dann die `docker-compose.yml` Datei sowie die Volumes des Host Systems.
+
+Bei der Datei ist sehr genau auf die Einrückungen zu achten. Hier sollten keinesfalls Tabs und Leerzeichen vermischt werden, bzw. komplett auf die Verwendung von Tabs verzichtet werden. Die Einrückungen bestimmen hier genau wie in Python die Zuordnungen zu den einzelnen Blöcken.
+
+=== Grundlegende docker compose Kommandos
+
+- `docker compose up` startet den Stack im Vordergrund, so sind die Log-Meldungen direkt zu sehen, die Shell ist aber "blockiert"
+- `docker compose up -d` startet den Stack im Hintergund, so dass die Shell weiter genutzt werden kann und der Stack nicht beendet wird, sobald die Shell beendet wird
+- `docker compose down` stoppt den gesamten Stack und löscht die gestoppten Container
+- `docker compose logs` zeigt die Logs aller Container an
+- `docker compose logs <service-name>` zeigt die Logs eines bestimmten Containers an
+- `docker compose logs -f` zeigt die Logs aller Container fortlaufend an, so dass neue Einträge direkt sichtbar sind
 
 
 
