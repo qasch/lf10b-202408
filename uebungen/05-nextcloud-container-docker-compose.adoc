@@ -1,0 +1,19 @@
+= Nextcloud Container mit docker compose
+
+Ihr sollt nun Nextcloud mittels `docker compose` aufsetzten. Nutzt auch hier wieder das folgende Image unter:
+
+ https://hub.docker.com/_/nextcloud
+
+Erstellt euch eine passende Ordnerstruktur. Achtet hierbei darauf, dass einerseits die `docker-compose.yml` Datei in diesem Verzeichnis vorhanden sein soll, sowie alle benötigten Volumes.
+
+Erstellt in diesem Verzeichnis nun eine Datei mit dem Namen `docker-compose.yml`. Besorgt euch dafür eine Vorlage (z.B. vom Docker Hub) und passt diese entsprechend eurer Umgebung an.
+
+Verwendet jeweils einen Container für die Nextcloud und einen für eine MariaDB Datenbank.
+
+Haltet die Datei für einen ersten Test möglichst simpel und baut diese lieber in weiteren Schritten aus. Ihr könnt hier z.B. über Umgebungsvariablen den Admin User für die Nextcloud inklusive Passwort angeben und/oder den Datenbankuser usw. Dies funktioniert aber nur beim ersten Start des Containers.
+
+Startet euren Stack und überprüft euer Ergebnis im Browser.
+
+**Zusatzaufgabe:**
+
+Solltet ihr hier schnell zu einem Ergebnis gekommen sein, könnt ihr zusätzlich probieren, auch den Webserver (entweder Apache oder auch nginx) in einen separaten Container auszulagern, so dass euer Stack aus drei Containern besteht. Recherchiert hierzu selbstständig, wie ihr zu dem gewünschten Ergebnis kommt.  
