@@ -1,0 +1,31 @@
+= Nextcloud Container
+
+Auch _Nextcloud_ kann ganz einfach über einen Docker Container bereitgestellt werden. Hier gibt es verschiedene Images. Nutzt für die Übung das Image `nextcloud` unter 
+
+ https://hub.docker.com/_/nextcloud
+
+Die Dokumentation auf dem Docker Hub ist recht aussagekräftig. Informiert euch hier, wie ihr einen Nextcloud Container über die Kommandozeile (*nicht* mit `docker compose`) startet, so dass ihr sie über euren Browser erreichen könnt. Nutzt hier das Apache Image.
+
+Überprüft euer Ergebnis in dem ihr euch in eurer Nextcloud anmeldet und testet, ob ihr z.B. Dateien hochladen könnt.
+
+== Persistente Speicherung der Daten
+
+Sorgt in einem nächsten Schritt nun dafür, dass die Daten, die ihr in der Nextcloud speichert bzw. hochladet, auch in einem *neu gebauten* Container verfügbar sind. Hinweis: Ihr müsst hier wieder mit Volumes arbeiten. In der Dokumentation findet ihr Hilfe dazu.
+
+== Separater Datenbankcontainer
+
+Bestenfalls nutzt man einen Container für genau eine Anwendung. Da wir Nextcloud mit einer MariaDB/MySQL Datenbank betreiben wollen, benötigen wir dazu einen weiteren Container. Schaut in der Doku nach, wie ihr parallel einen weitern Container mit der Datenbank betreiben könnt. Probiert es aus und testet euer Ergebnis.
+
+== Umgebungsvariablen
+
+Bisher musstet ihr beim ersten Start des Containers bestimmte Informationen ausfüllen, unter anderem z.B.:
+
+- Name des Nextlcoud Benutzers
+- Name der Datenbank
+- Datenbank User
+- Passwort
+
+Diese Daten können auch über Umgebungsvariablen bereitgestellt werden. Die Kommandozeilenoption dafür ist `-e`, für `--environment`. Die Umgebungsvariablen die man nutzen kann, finden sich in der Doku zu Nextcloud. Überlegt hier, welche ihr benötigt und versucht diese dem Container beim Start mitzugeben. 
+
+Hinweis: Jede Umgebungsvariable muss mit einem einzelnen `-e` angegeben werden. Der Kommandozeilenaufruf kann hierdurch ziemlich lang werden, darum kümmern wir uns aber auch noch und werden eine komfortablere Möglichkeit kennenlernen.
+

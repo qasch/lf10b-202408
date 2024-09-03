@@ -27,4 +27,4 @@ Erstellt also eine eigene HTML-Datei, bindet diese in eueren Container ein und �
 
 == Mehrere Container
 
-Beendet den ersten Container nicht, erzeugt aber einen weiteren Container aus dem Image `http`, den ihr analog zu oben mit einer zweiten Webseite ausstattet. Dazu müsst ihr natürlich einen anderen Port auf dem Host System nutzen.
+Beendet den ersten Container nicht, erzeugt aber einen weiteren Container aus dem Image `httpd`, den ihr analog zu oben mit einer zweiten Webseite ausstattet. Dazu müsst ihr natürlich einen anderen Port auf dem Host System nutzen.
