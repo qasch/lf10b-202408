@@ -1,0 +1,7 @@
+= Nextcloud in Portainer
+
+Erstellt in Portainer einen neuen Stack und fügt den Inhalt der `docker-compose.yml` Datei für die Nextcloud ein. Achtet darauf, einen noch freien Port anzugeben und evtl. die Volumes etc. anzupassen.
+
+Konfiguriert Nextcloud über Umgebungsvariablen.
+
+Startet den Stack und prüft, ob alles wie gewünscht funktioniert.
