@@ -1,0 +1,39 @@
+---
+- hosts: debian-server
+
+  tasks:
+
+    - name: install basic packages
+      package:
+        name:
+         - sudo
+         - htop
+         - ncdu
+        state: present
+      become: yes
+
+    - name: Create a user 'student' with a home directory
+      ansible.builtin.user:
+        name: student
+        shell: /bin/bash
+        password: "{{'Pa55w.rd' | password_hash('sha512')}}"
+        create_home: yes
+        groups: sudo
+        append: yes
+      become: yes
+
+    - name: Create folder .ssh for user student
+      file:
+        path: /home/student/.ssh
+        state: directory
+        mode: '0700'
+        owner: student
+        group: student
+
+    - name: Copy public key to server
+      copy:
+        src: files/id_rsa.pub
+        dest: /home/student/.ssh/authorized_keys
+        owner: student
+        group: student
+        mode: '0644'
