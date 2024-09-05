@@ -1,0 +1,44 @@
+---
+
+- hosts: all
+  vars:
+    - user: student
+    - homedir: "/home/{{ user }}"
+    - nextclouddir: "{{ homedir }}/docker/nextcloud"
+    - server_ip: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
+  become: true
+
+  tasks:
+
+    - name: Ensure docker is installed
+      package:
+        name:
+          - docker.io
+          - containerd
+          - runc
+          - docker-compose
+        state: present
+
+    - name: Ensure docker daemon is running
+      command: systemctl start docker
+
+    - name: Create directory structure for nextlcoud docker
+      file:
+        path: "{{ nextclouddir }}"
+        state: directory
+        owner: "{{ user }}"
+        group: "{{ user }}"
+        mode: '0755'
+
+    - name: Copy docker-compose.yml to servers
+      template:
+        src: templates/docker-compose.yml.j2
+        dest: "{{ nextclouddir }}/docker-compose.yml"
+        owner: "{{ user }}"
+        group: "{{ user }}"
+        mode: '0644'
+
+    - name: Start nextlcoud container
+      command: "docker-compose up -d"
+      args:
+        chdir: "{{ nextclouddir }}"

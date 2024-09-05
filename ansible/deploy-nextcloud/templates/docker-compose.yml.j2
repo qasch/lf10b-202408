@@ -1,0 +1,43 @@
+version: '2'
+
+volumes:
+  nextcloud:
+  db:
+
+networks:
+  app_net:
+
+services:
+  db:
+    image: mariadb:10.6
+    restart: always
+    command: --transaction-isolation=READ-COMMITTED --log-bin=binlog --binlog-format=ROW
+    volumes:
+      - ./db:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpw
+      - MYSQL_PASSWORD=nextcloudpw
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+    networks:
+      - app_net
+
+  app:
+    image: nextcloud
+    restart: always
+    ports:
+      - 8080:80
+    depends_on:
+      - db
+    volumes:
+      - ./nextcloud:/var/www/html
+    environment:
+      - MYSQL_PASSWORD=nextcloudpw
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+      - MYSQL_HOST=db
+      - NEXTCLOUD_ADMIN_USER=kai        # Wichtig, sonst kommt es zu
+      - NEXTCLOUD_ADMIN_PASSWORD=kaipw  # einem 'Internal Server Error'
+      - NEXTCLOUD_TRUSTED_DOMAINS="{{ server_ip }}"
+    networks:
+      - app_net
